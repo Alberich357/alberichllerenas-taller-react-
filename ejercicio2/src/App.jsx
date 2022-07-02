@@ -8,15 +8,21 @@ const Header = ({title}) => (
 const SubHeader = ({subTitle}) => (
   <h2>{subTitle}</h2>
 )
-const Statistics = ({stadistics}) => (
-  <div>
-    {stadistics.map(info => (
-            <p key={info.key}> {info.Good}
-            {info.Neutral}
-            {info.Bad}</p>
-        ))}
-  </div>
-)
+const Statistics = ({props}) => {
+  const {good, neutral, bad} = props
+  const total = good + neutral + bad 
+  const score = good - bad
+  const average = score / total | 0
+  const positive = good / total * 100 | 0
+
+  return(
+    <div>
+      <p>All: {total}</p>
+      <p>Average: {average}</p>
+      <p>Positive: {positive}</p>
+    </div>
+  )
+}
 
 const App = () => {
   const header = 'Give feedback'
@@ -32,12 +38,6 @@ const App = () => {
   
   let toRender = (<p>{good} {neutral} {bad}</p>) 
 
-  const statisticsInfo = [
-    {key: good, Good: (setGood)},
-    {key: neutral, Neutral:(setNeutral)},
-    {key: bad, Bad:(setBad)}
-  ]
-
   return(
     <div>
       <Header title={header}/>
@@ -45,8 +45,11 @@ const App = () => {
       <button onClick={incrementNeutral} disabled={setNeutral >= 1000}> Neutral </button>
       <button onClick={incrementBad} disabled={setBad >= 1000}> Bad </button>
       <SubHeader subTitle={subHeader}/>
-      {toRender}
-      <Statistics stadistics={statisticsInfo} />
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <Statistics/>
+
     </div>
   )
 }
