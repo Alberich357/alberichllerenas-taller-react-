@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-
 const Header = ({title}) => (
   <h1>{title}</h1>
 )
@@ -8,7 +7,7 @@ const Header = ({title}) => (
 const SubHeader = ({subTitle}) => (
   <h2>{subTitle}</h2>
 )
-const Statistics = ({props}) => {
+const Statistics = (props) => {
   const {good, neutral, bad} = props
   const total = good + neutral + bad 
   const score = good - bad
@@ -19,7 +18,7 @@ const Statistics = ({props}) => {
     <div>
       <p>All: {total}</p>
       <p>Average: {average}</p>
-      <p>Positive: {positive}</p>
+      <p>Positive: {positive}%</p>
     </div>
   )
 }
@@ -35,8 +34,6 @@ const App = () => {
   const incrementGood = () => setGood(good + 1);
   const incrementNeutral = () => setNeutral(neutral + 1);
   const incrementBad = () => setBad(bad + 1);
-  
-  let toRender = (<p>{good} {neutral} {bad}</p>) 
 
   return(
     <div>
@@ -48,8 +45,11 @@ const App = () => {
       <p>Good: {good}</p>
       <p>Neutral: {neutral}</p>
       <p>Bad: {bad}</p>
-      <Statistics/>
-
+      <Statistics
+      good={good}
+      neutral={neutral}
+      bad={bad}
+      />
     </div>
   )
 }
